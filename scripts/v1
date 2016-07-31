@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Example of a post script. Post contents are stores in POST_STRING variable
+
+echo "Content-type: text/html"
+echo ""
+
+POST_STRING=$(cat).
+echo $POST_STRING
+
+exit 0
+
+
