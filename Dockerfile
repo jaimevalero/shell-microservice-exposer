@@ -5,13 +5,19 @@ LABEL      Description="Generic container to receives POST http request to a she
 
 RUN yum install -y mysql
 
+# Prepare environment
+RUN cd    /var/www/cgi-bin
+RUN mkdir /root/scripts/
+RUN cd    /root/scripts/
 # Get git repos
-RUN cd /var/www/cgi-bin
+RUN git clone https://github.com/jaimevalero78/docker-httpd-inventory
+RUN cd  /root/scripts/docker-httpd-inventory
 
-# Start scripts
-ADD ./scripts/*                /var/www/cgi-bin/ 
 
 # Permissions
-RUN chmod -R +x /var/www/cgi-bin/
+RUN chmod +x      /root/scripts/docker-httpd-inventory/*sh
+RUN chmod -R +x   /var/www/cgi-bin/
+
+ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 80
