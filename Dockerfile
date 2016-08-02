@@ -10,12 +10,12 @@ RUN mkdir /root/scripts/
 RUN cd /root/scripts/
 
 # Get git repos
-RUN git clone "http://github.com/jaimevalero78/docker-httpd-inventory" /root/scripts/docker-httpd-inventory
-RUN cd /root/scripts/docker-httpd-inventory
+RUN git clone "http://github.com/jaimevalero78/shell-microservice-exposer" /root/scripts/shell-microservice-exposer
+RUN cd /root/scripts/shell-microservice-exposer
 
 # Permissions
-RUN chmod +x -R     /root/scripts/docker-httpd-inventory/
+RUN chmod +x -R     /root/scripts/shell-microservice-exposer/
 
-ENTRYPOINT ["/root/scripts/docker-httpd-inventory//entrypoint.sh"]
+ENTRYPOINT ["/root/scripts/shell-microservice-exposer//entrypoint.sh"]
 
 EXPOSE 80

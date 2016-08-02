@@ -1,12 +1,12 @@
 #! /bin/bash
 
-EXECUTOR_FULL_PATH=/root/scripts/docker-httpd-inventory/executor.sh
+EXECUTOR_FULL_PATH=/root/scripts/shell-microservice-exposer/executor.sh
 
 Show_Help( )
 {
 
     echo "No arguments supplied. Usage :"
-    echo "docker run -p 80:80 -t docker-httpd-inventory jaimevalero78/docker-httpd-inventory <URL_GITHUB_REPO>"
+    echo "docker run -p 80:80 -t shell-microservice-exposer jaimevalero78/shell-microservice-exposer <URL_GITHUB_REPO>"
     echo ""
     echo "Where <URL_GITHUB_REPO> is the URL to be exposed as microservices"
 }
