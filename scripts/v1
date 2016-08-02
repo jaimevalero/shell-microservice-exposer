@@ -9,5 +9,3 @@ POST_STRING=$(cat).
 echo $POST_STRING
 
 exit 0
-
-
