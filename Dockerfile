@@ -6,16 +6,13 @@ LABEL      Description="Generic container to receives POST http request to a she
 RUN yum install -y mysql git
 
 # Prepare environment
-RUN mkdir /root/scripts/
-RUN cd /root/scripts/
+RUN mkdir -p        /root/scripts/shell-microservice-exposer
 
-# Get git repos
-RUN git clone "http://github.com/jaimevalero78/shell-microservice-exposer" /root/scripts/shell-microservice-exposer
-RUN cd /root/scripts/shell-microservice-exposer
+ADD .       /root/scripts/shell-microservice-exposer
 
 # Permissions
 RUN chmod +x -R     /root/scripts/shell-microservice-exposer/
 
-ENTRYPOINT ["/root/scripts/shell-microservice-exposer//entrypoint.sh"]
+ENTRYPOINT ["/root/scripts/shell-microservice-exposer/entrypoint.sh"]
 
 EXPOSE 80
