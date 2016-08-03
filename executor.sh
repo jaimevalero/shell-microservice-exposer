@@ -1,1 +1,1 @@
-echo Arguments are "$@"
+echo "Executor: Arguments are $@"

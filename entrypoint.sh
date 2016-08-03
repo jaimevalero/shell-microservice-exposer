@@ -14,20 +14,22 @@ Show_Help( )
 # Main
 [ $# -eq 0 ] && Show_Help
 
-echo Arguments are "$@"
+echo "Entrypoint arguments are $@"
 URL_GITHUB_REPO=$1
 NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 
-
+mkdir /root/scripts/${NAME_GITHUB_REPO}
 git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
 
 # Recreate directories
 cd /var/www/cgi/bin
 find -type d ${NAME_GITHUB_REPO} | sed -e 's@/root/scripts/@@' | xargs mkdir -p
-for FILE in `find -type f ${NAME_GITHUB_REPO} `
+
+for FILE in `find -type f ${NAME_GITHUB_REPO} | grep -v \.git `
 do
   RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
   echo "linking $RELATIVE_PATH"
   ln -s $RELATIVE_PATH $EXECUTOR_FULL_PATH
-
 done
+
+while true; do sleep 1000; done
