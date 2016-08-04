@@ -21,15 +21,17 @@ NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 mkdir /root/scripts/${NAME_GITHUB_REPO}
 git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
 
-# Recreate directories
-cd /var/www/cgi/bin
-find -type d ${NAME_GITHUB_REPO} | sed -e 's@/root/scripts/@@' | xargs mkdir -p
+find /root/scripts/${NAME_GITHUB_REPO}
 
-for FILE in `find -type f ${NAME_GITHUB_REPO} | grep -v \.git `
+# Recreate directories
+cd /var/www/cgi-bin
+find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p
+
+for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
 do
   RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
   echo "linking $RELATIVE_PATH"
-  ln -s $RELATIVE_PATH $EXECUTOR_FULL_PATH
+  ln -s ${EXECUTOR_FULL_PATH} ${RELATIVE_PATH}
 done
 
 while true; do sleep 1000; done

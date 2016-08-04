@@ -14,7 +14,7 @@ ADD .       /root/scripts/shell-microservice-exposer
 RUN chmod +x -R     /root/scripts/shell-microservice-exposer/
 RUN find  /root/scripts/shell-microservice-exposer/
 
-ENTRYPOINT [",/entrypoint.sh"]
+ENTRYPOINT ["/root/scripts/shell-microservice-exposer/entrypoint.sh"]
 # CMD "/root/scripts/shell-microservice-exposer/entrypoint.sh"
 
 EXPOSE 80
