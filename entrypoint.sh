@@ -20,12 +20,13 @@ NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 
 mkdir /root/scripts/${NAME_GITHUB_REPO}
 git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
-
+RESUL=$?
+[ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
 find /root/scripts/${NAME_GITHUB_REPO}
 
 # Recreate directories
 cd /var/www/cgi-bin
-find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p
+find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
 
 for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
 do
