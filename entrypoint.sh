@@ -29,6 +29,27 @@ Inject_Repo( )
     find /root/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
 }
 
+Recreate_Repo_Under_Apache( )
+{
+
+    # Recreate directories
+    cd /var/www/${NAME_GITHUB_REPO}
+    find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
+
+
+    for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
+    do
+        RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
+        echo "linking $RELATIVE_PATH"
+        ln -s ./_executor.sh ${RELATIVE_PATH}
+    done
+
+    mkdir /var/www/scripts
+    cp -rf /root/scripts/${NAME_GITHUB_REPO  /var/www/scripts/
+}
+
+
+
 
 # Main
 [ $# -eq 0 ] && Show_Help
@@ -41,20 +62,9 @@ Replace_Apache_Script_Path
 
 Inject_Repo
 
-
-# Recreate directories
-cd /var/www/${NAME_GITHUB_REPO}
-find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
-
-
-for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
-do
-  RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
-  echo "linking $RELATIVE_PATH"
-  ln -s ./_executor.sh ${RELATIVE_PATH}
-done
+Recreate_Repo_Under_Apache
 
 httpd -k restart
-echo "Started http"
 
 while true; do sleep 1000; done
+

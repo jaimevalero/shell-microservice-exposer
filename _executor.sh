@@ -1,18 +1,7 @@
 #!/bin/bash
 
-echo "Content-type: text/html"
-echo ""
+cd /var/www/scripts
+ ./${SCRIPT_NAME}
+ exit
 
-echo '<html>'
-echo '<head>'
-echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-echo '<title>Hello World</title>'
-echo '</head>'
-echo '<body>'
-echo 'Hello World'
-env
-
-echo "Executor: Arguments are $@"
-echo '</body>'
-echo '</html>'
 
