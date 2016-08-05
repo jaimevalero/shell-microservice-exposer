@@ -1,0 +1,7 @@
+{
+    "enviroment_variables": {
+            "description": "The unique identifier for a product",
+            "type": "integer"
+    },
+    "arguments": ["ARG1","ARG2","ARG3"]
+}
