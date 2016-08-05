@@ -16,8 +16,8 @@ Replace_Apache_Script_Path( )
     cd /var/www/
     mv cgi-bin ${NAME_GITHUB_REPO}
     sed -i "s/cgi-bin/${NAME_GITHUB_REPO}/g" /etc/httpd/conf/httpd.conf
-    httpd -k graceful
-
+    #httpd -k graceful
+    chmod 777 -R /var/www/${NAME_GITHUB_REPO}
 }
 
 Inject_Repo( )
@@ -54,7 +54,7 @@ do
   ln -s ./_executor.sh ${RELATIVE_PATH}
 done
 
-httpd
+httpd -k restart
 echo "Started http"
 
 while true; do sleep 1000; done
