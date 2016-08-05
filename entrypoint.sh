@@ -11,6 +11,25 @@ Show_Help( )
     echo "Where <URL_GITHUB_REPO> is the URL to be exposed as microservices"
 }
 
+Replace_Apache_Script_Path( )
+{
+    cd /var/www/
+    mv cgi-bin ${NAME_GITHUB_REPO}
+    sed -i "s/cgi-bin/${NAME_GITHUB_REPO}/g" /etc/httpd/conf/httpd.conf
+    httpd -k graceful
+
+}
+
+Inject_Repo( )
+{
+    mkdir /root/scripts/${NAME_GITHUB_REPO}
+    git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
+    RESUL=$?
+    [ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
+    find /root/scripts/${NAME_GITHUB_REPO} | grep -v "\.git"
+}
+
+
 # Main
 [ $# -eq 0 ] && Show_Help
 
@@ -18,14 +37,13 @@ echo "Entrypoint arguments are $@"
 URL_GITHUB_REPO=$1
 NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 
-mkdir /root/scripts/${NAME_GITHUB_REPO}
-git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
-RESUL=$?
-[ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
-find /root/scripts/${NAME_GITHUB_REPO}
+Replace_Apache_Script_Path
+
+Inject_Repo
+
 
 # Recreate directories
-cd /var/www/cgi-bin
+cd /var/www/${NAME_GITHUB_REPO
 find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
 
 
