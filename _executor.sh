@@ -10,7 +10,9 @@ echo '<title>Hello World</title>'
 echo '</head>'
 echo '<body>'
 echo 'Hello World'
-echo "echo "Executor: Arguments are $@""
+env
+
+echo "Executor: Arguments are $@"
 echo '</body>'
 echo '</html>'
 
