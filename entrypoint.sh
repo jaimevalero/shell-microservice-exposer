@@ -1,6 +1,6 @@
 #! /bin/bash
 
-EXECUTOR_FULL_PATH=/root/scripts/shell-microservice-exposer/executor.sh
+EXECUTOR_FULL_PATH=/root/scripts/shell-microservice-exposer/_executor.sh
 
 Show_Help( )
 {
@@ -28,11 +28,15 @@ find /root/scripts/${NAME_GITHUB_REPO}
 cd /var/www/cgi-bin
 find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
 
+
 for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
 do
   RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
   echo "linking $RELATIVE_PATH"
-  ln -s ${EXECUTOR_FULL_PATH} ${RELATIVE_PATH}
+  ln -s ./_executor.sh ${RELATIVE_PATH}
 done
+
+httpd
+echo "Started http"
 
 while true; do sleep 1000; done
