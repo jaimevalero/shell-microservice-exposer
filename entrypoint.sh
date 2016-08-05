@@ -45,7 +45,7 @@ Recreate_Repo_Under_Apache( )
     done
 
     mkdir /var/www/scripts
-    cp -rf /root/scripts/${NAME_GITHUB_REPO  /var/www/scripts/
+    cp -rf /root/scripts/${NAME_GITHUB_REPO} /var/www/scripts/
 }
 
 
