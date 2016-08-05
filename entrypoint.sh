@@ -26,7 +26,7 @@ Inject_Repo( )
     git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
     RESUL=$?
     [ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
-    find /root/scripts/${NAME_GITHUB_REPO} | grep -v "\.git"
+    find /root/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
 }
 
 
@@ -43,7 +43,7 @@ Inject_Repo
 
 
 # Recreate directories
-cd /var/www/${NAME_GITHUB_REPO
+cd /var/www/${NAME_GITHUB_REPO}
 find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
 
 
