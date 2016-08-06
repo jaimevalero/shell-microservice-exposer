@@ -34,9 +34,12 @@ Recreate_Repo_Under_Apache( )
     # Recreate directories
     cd /var/www/${NAME_GITHUB_REPO}
     find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
+    for DIR  in ` find /var/www/${NAME_GITHUB_REPO} `
+    do
+        cp ${EXECUTOR_FULL_PATH} ${DIR}
+    done
 
-
-    for FILE in `find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
+    for FILE in ` find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
     do
         RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
         echo "linking $RELATIVE_PATH"
