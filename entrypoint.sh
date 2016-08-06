@@ -16,7 +16,6 @@ Replace_Apache_Script_Path( )
     cd /var/www/
     mv cgi-bin ${NAME_GITHUB_REPO}
     sed -i "s/cgi-bin/${NAME_GITHUB_REPO}/g" /etc/httpd/conf/httpd.conf
-    chmod 777 -R /var/www/${NAME_GITHUB_REPO}
 }
 
 Inject_Repo( )
@@ -48,6 +47,7 @@ Recreate_Repo_Under_Apache( )
 
     mkdir /var/www/scripts
     cp -rf /root/scripts/${NAME_GITHUB_REPO} /var/www/scripts/
+    chmod 777 -R /var/www/
 }
 
 
