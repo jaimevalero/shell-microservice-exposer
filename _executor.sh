@@ -15,9 +15,10 @@ Parse_Arguments( )
 Execute_Script( )
 {
    cd /var/www/scripts
-   echo "Ejecutamos /${SCRIPT_NAME} ${INPUT}"
-   ./${SCRIPT_NAME} $INPUT
-{
+   echo "Ejecutamos ${SCRIPT_NAME} ${INPUT}"
+   ./${SCRIPT_NAME} ${INPUT}
+
+}
 
 #MAIN
 echo "Content-type: text/html"
