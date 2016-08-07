@@ -1,16 +1,15 @@
 #!/bin/bash
 
-tmpfile=$(mktemp /abc-script.XXXXXX)
+tmpfile=$(mktemp abc-script.XXXXXX)
 
 Receive_JSON( )
 {
    POST_STRING=$(cat)
-   echo "POST_STRING=$POST_STRING"
+   echo "POST_DATA=$POST_STRING"
 }
 
 Parse_Arguments( )
 {
-   echo "POST_DATA=${POST_STRING}"
    INPUT=`echo "$POST_STRING" | jq -c '.|{arguments}[]' | tr -d  [ | tr -d ] | tr ',' ' '`
    echo "ARGUMENTS=$INPUT"
 }
@@ -18,7 +17,8 @@ Parse_Arguments( )
 Parse_Enviroment_Variables( )
 {
    echo "$POST_STRING" | jq -c '.|{environment_variables}[]' | sed 's/","/\
-   /g' | sed -e 's/":"/=/g' | sed -e 's/{"//g' | sed -e 's/"}//g' | sed -e 's/^/export /g' > $tmpfile
+/g' | sed -e 's/":"/=/g' | sed -e 's/{"//g'  | sed -e 's/^/export /g' | sed -e 's/"}//g' > $tmpfile
+   echo "Profile contents:"
    cat $tmpfile
    source $tmpfile
    rm -f $tmpfile 2>/dev/null
