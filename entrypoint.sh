@@ -28,6 +28,7 @@ Inject_Repo( )
        echo "Detected branch $BRANCH_NAME" 
        NEW_URL_GITHUB_REPO=`echo ${URL_GITHUB_REPO} | sed -e "s@/tree/.*@@g" `
        URL_GITHUB_REPO=$NEW_URL_GITHUB_REPO
+       NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
        git clone -b $NEW_URL_GITHUB_REPO ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
        RESUL=$?
        #git clone -b feature-test https://github.com/jaimevalero78/test-branching 
@@ -72,9 +73,9 @@ echo "Entrypoint arguments are $@"
 URL_GITHUB_REPO=$1
 NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 
-Replace_Apache_Script_Path
-
 Inject_Repo
+
+Replace_Apache_Script_Path
 
 Recreate_Repo_Under_Apache
 
