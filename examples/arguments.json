@@ -1,7 +1,8 @@
 {
     "enviroment_variables": {
-            "description": "The unique identifier for a product",
-            "type": "integer"
+            "MYSQL_USER": "root",
+            "MYSQL_PASSWORD": "PASSWORD",
+            "MYSQL_HOST" : "myserver"
     },
     "arguments": ["ARG1","ARG2","ARG3"]
 }

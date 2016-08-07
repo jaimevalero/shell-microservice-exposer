@@ -1,6 +1,8 @@
 #!/bin/bash
 
-Receive_Arguments( )
+tmpfile=$(mktemp /abc-script.XXXXXX)
+
+Receive_JSON( )
 {
    POST_STRING=$(cat)
    echo "POST_STRING=$POST_STRING"
@@ -9,7 +11,16 @@ Receive_Arguments( )
 Parse_Arguments( )
 {
    INPUT=`echo "$POST_STRING" | jq -c '.|{arguments}[]' | tr -d  [ | tr -d ] | tr ',' ' '`
-   echo INPUT=$INPUT
+   echo ARGUMENTS=$INPUT
+}
+
+Parse_Enviroment_Variables( )
+{
+   echo "$POST_STRING" | jq -c '.|{enviroment_variables}[]' | sed 's/","/\
+   /g' | sed -e 's/":"/=/g' | sed -e 's/{"//g' | sed -e 's/"}//g' | sed -e 's/^/export /g' > $tmpfile
+   cat $tmpfile
+   source $tmpfile
+   rm -f $tmpfile 2>/dev/null
 }
 
 Execute_Script( )
@@ -24,9 +35,11 @@ Execute_Script( )
 echo "Content-type: text/html"
 echo ""
 
-Receive_Arguments
+Receive_JSON
 
 Parse_Arguments
+
+Parse_Enviroment_Variables
 
 Execute_Script
 
