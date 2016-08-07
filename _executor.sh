@@ -17,7 +17,7 @@ Parse_Arguments( )
 
 Parse_Enviroment_Variables( )
 {
-   echo "$POST_STRING" | jq -c '.|{enviroment_variables}[]' | sed 's/","/\
+   echo "$POST_STRING" | jq -c '.|{environment_variables}[]' | sed 's/","/\
    /g' | sed -e 's/":"/=/g' | sed -e 's/{"//g' | sed -e 's/"}//g' | sed -e 's/^/export /g' > $tmpfile
    cat $tmpfile
    source $tmpfile
