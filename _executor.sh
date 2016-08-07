@@ -24,14 +24,21 @@ Parse_Enviroment_Variables( )
    rm -f $tmpfile 2>/dev/null
 }
 
+
 Execute_Script( )
 {
    cd /var/www/scripts
-   echo "Ejecutamos ${SCRIPT_NAME} ${INPUT}"
-   ./${SCRIPT_NAME} ${INPUT}
-
+   if [ ` echo $INPUT | egrep "^null" | wc -l  ` -eq 1 ]
+   then
+       echo "Ejecutamos ${SCRIPT_NAME}"
+       ./${SCRIPT_NAME}
+   else
+       echo "Ejecutamos ${SCRIPT_NAME} ${INPUT}"
+       ./${SCRIPT_NAME} ${INPUT}
+   fi
 }
 
+								
 #MAIN
 echo "Content-type: text/html"
 echo ""
