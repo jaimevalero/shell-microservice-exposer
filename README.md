@@ -15,7 +15,7 @@ curl -L 127.0.0.1:80/itop-utilities/synch.sh
 curl -H "Content-Type: application/json" \
      -X POST                             \
      -d "{ \"arguments\" : [ \"arg1\" , \"arg2\" ] }"\
-     -L 
+     -L                                  \
      127.0.0.1:80/itop-utilities/synch.sh 
 
 ### Invoke a script passing environment variables
