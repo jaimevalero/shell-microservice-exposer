@@ -12,24 +12,12 @@ docker run  -p 80:80 shell-microservice-exposer "https://github.com/jaimevalero7
 curl -L 127.0.0.1:80/itop-utilities/synch.sh
 
 ### Invoke a script passing arguments
-curl -H "Content-Type: application/json" \
-     -X POST                             \
-     -d "{ \"arguments\" : [ \"arg1\" , \"arg2\" ] }"\
-     -L                                  \
-     127.0.0.1:80/itop-utilities/synch.sh 
+curl -H "Content-Type: application/json" -X POST  -d "{ \"arguments\" : [ \"arg1\" , \"arg2\" ] }" -L   127.0.0.1:80/itop-utilities/synch.sh
 
 ### Invoke a script passing environment variables
-curl -H "Content-Type: application/json" \
-     -X POST                             \
-     -d "{\"environment_variables\":{\"MYSQL_USER\":\"root\",\"MYSQL_PASSWORD\":\"PASSWORD\",\"MYSQL_HOST\":\"myserver\"}}" curl -H "Content-Type: application/json" \
-     -L                                  \
-    127.0.0.1:80/itop-utilities/synch.sh 
+curl -H "Content-Type: application/json" -X POST   -d "{\"environment_variables\":{\"MYSQL_USER\":\"root\",\"MYSQL_PASSWORD\":\"PASSWORD\",\"MYSQL_HOST\":\"myserver\"}}"   -L  127.0.0.1:80/itop-utilities/synch.sh
 
 ### Invoke a script passing both arguments and environment variables
-curl -H "Content-Type: application/json" \
-     -X POST                             \
-     -d "{\"environment_variables\":{\"MYSQL_USER\":\"root\",\"MYSQL_PASSWORD\":\"PASSWORD\",\"MYSQL_HOST\":\"myserver\"},\"arguments\":[\"ARG1\",\"ARG2\",\"ARG3\"]}"\
-     -L                                  \
-     127.0.0.1:80/itop-utilities/synch.sh
+curl -H "Content-Type: application/json"  -X POST -d "{\"environment_variables\":{\"MYSQL_USER\":\"root\",\"MYSQL_PASSWORD\":\"PASSWORD\",\"MYSQL_HOST\":\"myserver\"},\"arguments\":[\"ARG1\",\"ARG2\",\"ARG3\"]}"\  -L  127.0.0.1:80/itop-utilities/synch.sh
 
 
