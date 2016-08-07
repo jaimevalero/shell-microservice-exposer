@@ -10,8 +10,9 @@ Receive_JSON( )
 
 Parse_Arguments( )
 {
+   echo "POST_DATA=${POST_STRING}"
    INPUT=`echo "$POST_STRING" | jq -c '.|{arguments}[]' | tr -d  [ | tr -d ] | tr ',' ' '`
-   echo ARGUMENTS=$INPUT
+   echo "ARGUMENTS=$INPUT"
 }
 
 Parse_Enviroment_Variables( )
