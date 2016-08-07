@@ -21,8 +21,20 @@ Replace_Apache_Script_Path( )
 Inject_Repo( )
 {
     mkdir /root/scripts/${NAME_GITHUB_REPO}
-    git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
-    RESUL=$?
+    # Detect BRANCH
+    if [ ` echo ${URL_GITHUB_REPO} | grep /tree/  | wc -l ` -eq 1 ] 
+    then
+       BRANCH_NAME=`basename ${URL_GITHUB_REPO} `
+       echo "Detected branch $BRANCH_NAME" 
+       NEW_URL_GITHUB_REPO=`echo ${URL_GITHUB_REPO} | sed -e "s@/tree/.*@@g" `
+       URL_GITHUB_REPO=$NEW_URL_GITHUB_REPO
+       git clone -b $NEW_URL_GITHUB_REPO ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
+       RESUL=$?
+       #git clone -b feature-test https://github.com/jaimevalero78/test-branching 
+    else
+       git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
+       RESUL=$?
+    fi
     [ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
     find /root/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
 }
