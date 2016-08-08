@@ -23,9 +23,9 @@ Parse_Arguments( )
 Parse_Enviroment_Variables( )
 {
    echo "$POST_STRING" | jq -c '.|{environment_variables}[]' | sed 's/","/\
-/g' | sed -e 's/":"/=/g' | sed -e 's/{"//g'  | sed -e 's/^/export /g' | sed -e 's/"}//g' > $tmpfile
+/g' | sed -e 's/":"/=\"/g' | sed -e 's/{"//g'  | sed -e 's/^/export /g' | sed -e 's/"}/\"/g' > $tmpfile
    ShowLog "Profile contents:"
-   ShowLog $tmpfile
+   ShowLog `cat $tmpfile `
    source $tmpfile
    rm -f $tmpfile 2>/dev/null
 }
@@ -33,15 +33,17 @@ Parse_Enviroment_Variables( )
 
 Execute_Script( )
 {
-   cd /var/www/scripts
-   if [ ` echo $INPUT | egrep "^null" | wc -l  ` -eq 1 ]
-   then
-       ShowLog "Ejecutamos ${SCRIPT_NAME}"
-       ./${SCRIPT_NAME}
-   else
-       ShowLog "Ejecutamos ${SCRIPT_NAME} ${INPUT}"
-       ./${SCRIPT_NAME} ${INPUT}
-   fi
+ FULL_PATH=/var/www/scripts${SCRIPT_NAME}
+ cd ` dirname $FULL_PATH` 2>/dev/null
+ SCRIPT_SHORT_NAME=` basename $FULL_PATH`
+ if [ ` echo $INPUT | egrep "^null" | wc -l  ` -eq 1 ]
+ then
+     ShowLog "Ejecutamos ${SCRIPT_SHORT_NAME} en `dirname $FULL_PATH`"
+     ./${SCRIPT_SHORT_NAME}
+ else
+     ShowLog "Ejecutamos ${SCRIPT_SHORT_NAME} ${INPUT}"
+    ./${SCRIPT_SHORT_NAME} ${INPUT}
+ fi
 }
 
 								
