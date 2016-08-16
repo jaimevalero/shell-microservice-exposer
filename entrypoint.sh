@@ -83,5 +83,7 @@ Recreate_Repo_Under_Apache
 
 httpd -T -k restart
 
+echo "Webserver started"
+
 while true; do sleep 1000; done
 
