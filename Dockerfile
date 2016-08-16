@@ -1,7 +1,7 @@
 # Test
 FROM       centos/httpd
 MAINTAINER Jaime Valero <jaimevalero78@yahoo.es>
-LABEL      Description="Generic container to receives POST http request to a shell script" Version="0.2"
+LABEL      Description="Generic container to receives POST http request to a shell script" Version="0.3"
 
 # Install packages
 RUN yum install -y mysql git wget
