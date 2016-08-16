@@ -38,6 +38,8 @@ Inject_Repo( )
        git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
        RESUL=$?
     fi
+    cd /root/scripts/${NAME_GITHUB_REPO} 2>/dev/null
+    git log -1
     [ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
     find /root/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
 }
