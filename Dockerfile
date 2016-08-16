@@ -17,7 +17,7 @@ RUN chmod +x -R     /root/scripts/shell-microservice-exposer/
 
 # Apache
 RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
-RUN httpd -T -k graceful 2>/dev/null
+RUN httpd -T -k graceful 2>/dev/null 1>/dev/null
 
 ENTRYPOINT ["/root/scripts/shell-microservice-exposer/entrypoint.sh"]
 
