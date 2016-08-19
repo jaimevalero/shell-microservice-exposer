@@ -49,7 +49,7 @@ Execute_Script( )
 								
 #MAIN
 #echo "Content-type: text/html"
-#echo ""
+echo ""
 
 Receive_JSON
 
