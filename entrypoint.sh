@@ -1,6 +1,6 @@
 #! /bin/bash
 
-EXECUTOR_FULL_PATH=/root/scripts/shell-microservice-exposer/_executor.sh
+EXECUTOR_FULL_PATH=/tmp/scripts/shell-microservice-exposer/_executor.sh
 
 Show_Help( )
 {
@@ -28,20 +28,20 @@ Inject_Repo( )
        NEW_URL_GITHUB_REPO=`echo ${URL_GITHUB_REPO} | sed -e "s@/tree/.*@@g" `
        URL_GITHUB_REPO=$NEW_URL_GITHUB_REPO
        NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
-       mkdir /root/scripts/${NAME_GITHUB_REPO}
+       mkdir /tmp/scripts/${NAME_GITHUB_REPO}
        echo " git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} ANCH_NAME}pts/${NAME_GITHUB_REPO}"
-       git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
+       git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} /tmp/scripts/${NAME_GITHUB_REPO}
        RESUL=$?
        #git clone -b feature-test https://github.com/jaimevalero78/test-branching 
     else
-       mkdir /root/scripts/${NAME_GITHUB_REPO}
-       git clone ${URL_GITHUB_REPO} /root/scripts/${NAME_GITHUB_REPO}
+       mkdir /tmp/scripts/${NAME_GITHUB_REPO}
+       git clone ${URL_GITHUB_REPO} /tmp/scripts/${NAME_GITHUB_REPO}
        RESUL=$?
     fi
-    cd /root/scripts/${NAME_GITHUB_REPO} 2>/dev/null
+    cd /tmp/scripts/${NAME_GITHUB_REPO} 2>/dev/null
     git log -1
     [ $RESUL -ne 0 ] && echo "Error cloning repo  ${URL_GITHUB_REPO}. Exit" && exit 1
-    find /root/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
+    find /tmp/scripts/${NAME_GITHUB_REPO} |  grep -v "\.git"
 }
 
 Recreate_Repo_Under_Apache( )
@@ -49,21 +49,21 @@ Recreate_Repo_Under_Apache( )
 
     # Recreate directories
     cd /var/www/${NAME_GITHUB_REPO}
-    find "/root/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
+    find "/tmp/scripts/${NAME_GITHUB_REPO}" -type d | sed -e "s@/tmp/scripts/${NAME_GITHUB_REPO}/@@" | xargs mkdir -p 2>/dev/null
     for DIR  in ` find /var/www/${NAME_GITHUB_REPO} `
     do
         cp ${EXECUTOR_FULL_PATH} ${DIR}
     done
 
-    for FILE in ` find  /root/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/root/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
+    for FILE in ` find  /tmp/scripts/${NAME_GITHUB_REPO} -type f | sed -e "s@/tmp/scripts/${NAME_GITHUB_REPO}/@@" | grep -v \.git `
     do
-        RELATIVE_PATH=`echo $FILE |sed -e 's@/root/scripts/@@'`
+        RELATIVE_PATH=`echo $FILE |sed -e 's@/tmp/scripts/@@'`
         echo "linking $RELATIVE_PATH"
         ln -s ./_executor.sh ${RELATIVE_PATH}
     done
 
     mkdir /var/www/scripts
-    cp -rf /root/scripts/${NAME_GITHUB_REPO} /var/www/scripts/
+    cp -rf /tmp/scripts/${NAME_GITHUB_REPO} /var/www/scripts/
     chmod 777 -R /var/www/
 }
 
