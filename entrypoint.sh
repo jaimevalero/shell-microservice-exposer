@@ -73,10 +73,10 @@ Recreate_Repo_Under_Apache( )
 
 
 # Main
-[ $# -eq 0 ] && Show_Help
-
-echo "Entrypoint arguments are $@"
-URL_GITHUB_REPO=$1
+#[ $# -eq 0 ] && Show_Help
+[ $# -eq 1 ] && URL_GITHUB_REPO=$1
+#echo "Entrypoint arguments are $@"
+#URL_GITHUB_REPO=$1
 NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
 
 Inject_Repo
