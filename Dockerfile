@@ -5,6 +5,7 @@ LABEL      Description="Generic container to receives POST http request to a she
 
 # Install packages
 RUN yum install -y mysql git wget
+
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 > /usr/local/bin/jq && chmod +x /usr/local/bin/jq 
 
 
