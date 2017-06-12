@@ -9,7 +9,7 @@ Show_Help( )
     echo "docker run -p 80:80 -t shell-microservice-exposer jaimevalero78/shell-microservice-exposer <URL_GITHUB_REPO>"
     echo ""
     echo "Where <URL_GITHUB_REPO> is the URL to be exposed as microservices"
-    echo `env`
+    echo `date` `env`
 
 }
 
