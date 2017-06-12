@@ -25,9 +25,8 @@ RUN chmod +x -R     /tmp/scripts/shell-microservice-exposer/
 
 # Apache
 RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
-RUN httpd configtest
-RUN httpd -T -k graceful 
-#2>/dev/null 1>/dev/null
+RUN httpd -T -k graceful  #2>/dev/null 1>/dev/null
+
 
 USER contint
 
