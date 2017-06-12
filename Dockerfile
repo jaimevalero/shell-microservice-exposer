@@ -7,16 +7,14 @@ MAINTAINER Jaime Valero <jaimevalero78@yahoo.es>
 LABEL      Description="Generic container to receives POST http request to a shell script" Version="0.5"
 
 # Install packages
-RUN yum install -y mysql git wget
+RUN yum install -y mysql git wget  && yum clean all -y
  
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 > /usr/local/bin/jq && chmod +x /usr/local/bin/jq 
-
-
 
 # Prepare environment
 RUN mkdir -p        /tmp/scripts/shell-microservice-exposer
 ADD .               /tmp/scripts/shell-microservice-exposer
-ADD _executor.sh     /var/www/cgi-bin/
+ADD _executor.sh    /var/www/cgi-bin/
 
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
