@@ -1,14 +1,13 @@
 # Test
 FROM       centos/httpd
 RUN useradd -s /bin/bash contint
-USER contint
 
 MAINTAINER Jaime Valero <jaimevalero78@yahoo.es>
 
 LABEL      Description="Generic container to receives POST http request to a shell script" Version="0.5"
 
 # Install packages
-RUN sudo yum install -y mysql git wget
+RUN yum install -y mysql git wget
  
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 > /usr/local/bin/jq && chmod +x /usr/local/bin/jq 
 
@@ -26,7 +25,9 @@ RUN chmod +x -R     /tmp/scripts/shell-microservice-exposer/
 
 # Apache
 RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
-RUN sudo httpd -T -k graceful 2>/dev/null 1>/dev/null
+RUN httpd -T -k graceful 2>/dev/null 1>/dev/null
+
+USER contint
 
 ENTRYPOINT ["/tmp/scripts/shell-microservice-exposer/entrypoint.sh"]
 
