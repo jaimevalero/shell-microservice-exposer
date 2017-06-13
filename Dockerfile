@@ -26,7 +26,7 @@ RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/htt
 RUN httpd -T -k graceful  #2>/dev/null 1>/dev/null
 
 
-USER contint
+USER apache
 
 ENTRYPOINT ["/tmp/scripts/shell-microservice-exposer/entrypoint.sh"]
 
