@@ -12,10 +12,10 @@ RUN yum install -y mysql git wget  && yum clean all -y
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 > /usr/local/bin/jq && chmod +x /usr/local/bin/jq 
 
 # Prepare environment
-RUN chmod -R 777 /tmp/  /var/www
 RUN mkdir -p        /tmp/scripts/shell-microservice-exposer
 ADD .               /tmp/scripts/shell-microservice-exposer
 ADD _executor.sh    /var/www/cgi-bin/
+RUN chmod -R 777 /tmp/  /var/www
 
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 

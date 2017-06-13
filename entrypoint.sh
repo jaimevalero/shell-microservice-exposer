@@ -31,7 +31,7 @@ Inject_Repo( )
        URL_GITHUB_REPO=$NEW_URL_GITHUB_REPO
        NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
        mkdir /tmp/scripts/${NAME_GITHUB_REPO}
-       echo " git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} ANCH_NAME}pts/${NAME_GITHUB_REPO}"
+       echo " git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} /tmp/scripts/${NAME_GITHUB_REPO}"
        git clone -b ${BRANCH_NAME} ${URL_GITHUB_REPO} /tmp/scripts/${NAME_GITHUB_REPO}
        RESUL=$?
        #git clone -b feature-test https://github.com/jaimevalero78/test-branching 
