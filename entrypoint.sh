@@ -79,6 +79,8 @@ Recreate_Repo_Under_Apache( )
 
 echo "Entrypoint arguments are $@"
 echo "URL_GITHUB_REPO=$URL_GITHUB_REPO="
+echo "Usuario "`id`
+echo "directorio "`ls -altr /tmp/scripts/`
 
 #URL_GITHUB_REPO=$1
 NAME_GITHUB_REPO=`basename ${URL_GITHUB_REPO}`
