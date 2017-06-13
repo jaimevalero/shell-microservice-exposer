@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tmpfile=$(mktemp abc-script.XXXXXX)
+tmpfile=$(mktemp /tmp/abc-script.XXXXXX)
 DEBUG=0
 
 ShowLog( )
