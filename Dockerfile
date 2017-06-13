@@ -15,7 +15,9 @@ RUN curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 >
 RUN mkdir -p        /tmp/scripts/shell-microservice-exposer
 ADD .               /tmp/scripts/shell-microservice-exposer
 ADD _executor.sh    /var/www/cgi-bin/
-RUN chmod -R 777 /tmp/  /var/www
+RUN chmod -R 777    /tmp/  /var/www /var/log/httpd  /etc/httpd/
+
+
 
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
