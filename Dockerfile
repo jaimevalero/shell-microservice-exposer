@@ -29,7 +29,7 @@ RUN chmod +x -R     /tmp/scripts/shell-microservice-exposer/
 #RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
 #RUN httpd -T -k start  #2>/dev/null 1>/dev/null
 #RUN ps -ef | grep httpd | grep -v grep
-RUN a=0
+RUN a=1
 
 USER apache
 
