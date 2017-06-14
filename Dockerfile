@@ -26,9 +26,9 @@ COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 RUN chmod +x -R     /tmp/scripts/shell-microservice-exposer/
 
 # Apache
-RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
-RUN httpd -T -k start  #2>/dev/null 1>/dev/null
-RUN ps -ef | grep httpd | grep -v grep
+#RUN sed -i 's/Options None/Options FollowSymLinks Indexes/g' /etc/httpd/conf/httpd.conf
+#RUN httpd -T -k start  #2>/dev/null 1>/dev/null
+#RUN ps -ef | grep httpd | grep -v grep
 
 USER apache
 
